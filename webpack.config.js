@@ -1,7 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtracPlugin = require('mini-css-extract-plugin')
-const CopyPlugin = require("copy-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
 
 module.exports = {
@@ -29,7 +30,17 @@ module.exports = {
         },
         {
           test: /\.png/,
-          type: "asset/resource"
+          type: "asset/resource",
+          generator: {
+            filename: 'imges/[name][hash][ext]'
+          }
+        },
+        {
+          test: /\.woff(2)?/,
+          type: "asset/resource",
+          generator: {
+            filename: 'fonts/[name][hash][ext]'
+          }
         }
       ]
   },
@@ -44,7 +55,16 @@ module.exports = {
     //   patterns: [
     //     { from: path.resolve(__dirname, 'src/assets/images'), to: "assets/images" },
     //   ],
-    // })
-  ]
+    // }),
+  ],
+
+  //PARA OPTIMIZAR LOS CSS
+  optimization: {
+    minimize: true,
+    minimizer: [
+      '...', // Extiende los minimizers existentes, como `terser-webpack-plugin`
+      new CssMinimizerPlugin(),
+    ]
+  }
 }
 
