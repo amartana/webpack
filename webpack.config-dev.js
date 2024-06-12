@@ -2,7 +2,6 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtracPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack')
-const { CleanWebpackPlugin} = require('clean-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
@@ -10,6 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dists'),
     filename: 'main.js'
   },
+  mode: 'development',
   resolve: {
     extensions: ['.js'],
     alias:{
@@ -61,11 +61,10 @@ module.exports = {
     //     { from: path.resolve(__dirname, 'src/assets/images'), to: "assets/images" },
     //   ],
     // }),
-    new Dotenv(),
-    new CleanWebpackPlugin()
+    new Dotenv()
   ],
   optimization: {
-    minimize: true,
+    minimize: false,
   }
 }
 
