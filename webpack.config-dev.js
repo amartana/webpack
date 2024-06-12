@@ -10,9 +10,10 @@ module.exports = {
     filename: 'main.js'
   },
   mode: 'development',
+  devtool: "source-map",
   resolve: {
     extensions: ['.js'],
-    alias:{
+    alias: {
       '@utils': path.resolve(__dirname, 'src', 'utils'),
       '@templates': path.resolve(__dirname, 'src', 'templates'),
       '@styles': path.resolve(__dirname, 'src', 'styles'),
@@ -65,6 +66,13 @@ module.exports = {
   ],
   optimization: {
     minimize: false,
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
+    compress: true,
+    port: 9000,
   }
 }
 
