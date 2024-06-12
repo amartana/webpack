@@ -1,9 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtracPlugin = require('mini-css-extract-plugin')
-const CopyPlugin = require('copy-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-
+const MiniCssExtracPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   entry: './src/index.js',
@@ -12,7 +10,13 @@ module.exports = {
     filename: 'main.js'
   },
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js'],
+    alias:{
+      '@utils': path.resolve(__dirname, 'src', 'utils'),
+      '@templates': path.resolve(__dirname, 'src', 'templates'),
+      '@styles': path.resolve(__dirname, 'src', 'styles'),
+      '@images': path.resolve(__dirname, 'src', 'assets', 'images'),
+    }
   },
   module: {
     rules:
@@ -32,7 +36,7 @@ module.exports = {
           test: /\.png/,
           type: "asset/resource",
           generator: {
-            filename: 'imges/[name][hash][ext]'
+            filename: 'images/[name][hash][ext]'
           }
         },
         {
@@ -56,15 +60,10 @@ module.exports = {
     //     { from: path.resolve(__dirname, 'src/assets/images'), to: "assets/images" },
     //   ],
     // }),
+    new Dotenv()
   ],
-
-  //PARA OPTIMIZAR LOS CSS
   optimization: {
     minimize: true,
-    minimizer: [
-      '...', // Extiende los minimizers existentes, como `terser-webpack-plugin`
-      new CssMinimizerPlugin(),
-    ]
   }
 }
 
