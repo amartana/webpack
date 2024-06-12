@@ -10,6 +10,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dists'),
     filename: 'main.js'
   },
+  mode: "production",
   resolve: {
     extensions: ['.js'],
     alias:{
