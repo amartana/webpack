@@ -12,10 +12,9 @@ module.exports = {
   },
   mode: "production",
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js', '.jsx'],
     alias:{
       '@utils': path.resolve(__dirname, 'src', 'utils'),
-      '@templates': path.resolve(__dirname, 'src', 'templates'),
       '@styles': path.resolve(__dirname, 'src', 'styles'),
       '@images': path.resolve(__dirname, 'src', 'assets', 'images'),
     }
@@ -24,10 +23,16 @@ module.exports = {
     rules:
       [
         {
-          test: /\.m?js$/,
+          test: /\.(js|jsx)$/,
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
+          }
+        },
+        {
+          test: /\.html$/,
+          use: {
+              loader: 'html-loader'
           }
         },
         {
